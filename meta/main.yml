@@ -1,0 +1,18 @@
+# file: k3s-prereq/meta/main.yml
+# synopsis: prepare the nodes for K3s installation
+---
+galaxy_info:
+  role_name: k3s_prereq
+  author: crazyelectron-io
+  description: Prepare the setup of K3s
+  company: 'clouds+more'
+  license: license (GPLv3)
+  min_ansible_version: '2.9'
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+  galaxy_tags:
+    - debian
+
+dependencies: []

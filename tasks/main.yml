@@ -1,0 +1,35 @@
+---
+- name: Set same timezone on every node
+  timezone:
+    name: "{{ system_timezone }}"
+  when: (system_timezone is defined) and (system_timezone != "Your/Timezone")
+
+- name: Enable IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: yes
+
+- name: Enable IPv6 forwarding
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    state: present
+    reload: yes
+
+- name: Install Python Kubernetes library
+  pip:
+    name: kubernetes
+    state: present
+
+- name: Deploy Longhorn prerequisites
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - open-iscsi
+    - nfs-common
+  when: install_lh-prereq
+
+- ansible.builtin.include_task: download.yml

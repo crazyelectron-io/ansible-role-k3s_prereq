@@ -1,0 +1,4 @@
+# file: k3s-prereq/defaults/main.yml
+# synopsis: define the default values for this role
+---
+system_timezone: 'Europe/Amsterdam'
