@@ -32,4 +32,4 @@
     state: present
   with_items: "{{ lh_packages }}"
 
-- ansible.builtin.include_task: download.yml
+- ansible.builtin.include_tasks: download.yml
