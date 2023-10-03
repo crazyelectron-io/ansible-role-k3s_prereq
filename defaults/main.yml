@@ -2,3 +2,6 @@
 # synopsis: define the default values for this role
 ---
 system_timezone: 'Europe/Amsterdam'
+lh_packages:
+  - open-iscsi
+  - nfs-common

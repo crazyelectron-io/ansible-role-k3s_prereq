@@ -19,17 +19,17 @@
     reload: yes
 
 - name: Install Python Kubernetes library
-  pip:
-    name: kubernetes
+  ansible.builtin.package:
+    name: "{{ item }}"
     state: present
+  with_items:
+    - python3-pip
+    - python3-kubernetes
 
 - name: Deploy Longhorn prerequisites
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
-  with_items:
-    - open-iscsi
-    - nfs-common
-  when: install_lh-prereq
+  with_items: "{{ lh_packages }}"
 
 - ansible.builtin.include_task: download.yml
