@@ -1,0 +1,27 @@
+# file: k3s-prereq/tasks/firewall.yaml
+# synopsis: Allow K3s ports in ufw
+---
+- name: Allow K3s API server port
+  community.general.ufw:
+    comment: 'K3s apiserver'
+    rule: allow
+    port: 6443
+    proto: tcp
+
+- name: Allow K3s Pods connection
+  community.general.ufw:
+    comment: 'K3s pods'
+    rule: allow
+    direction: 'out'
+    proto: any
+    from: "10.42.0.0/16"
+    to: 'any'
+
+- name: Allow K3s Services connections
+  community.general.ufw:
+    comment: 'K3s services'
+    rule: allow
+    direction: 'out'
+    proto: 'any'
+    from: "10.43.0.0/16"
+    to: 'any'

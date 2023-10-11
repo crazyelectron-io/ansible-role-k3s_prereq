@@ -1,0 +1,21 @@
+---
+- name: Enable IPv4 forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
+    reload: yes
+  register: ip4v_forward
+
+- name: Enable IPv6 forwarding
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    state: present
+    reload: yes
+  when: ansible_all_ipv6_addresses
+  register: ipv6_forward
+
+- name: Activate new sysctl rightaway
+  ansible.builtin.shell: 'sysctl -p'
+  when: ip4v_forward.changed or ipv6_forward.changed
